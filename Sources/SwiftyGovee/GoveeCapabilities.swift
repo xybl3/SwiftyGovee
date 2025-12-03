@@ -8,13 +8,13 @@
 import Foundation
 
 
-struct GoveeDeviceCapability: Codable {
-    let type: GoveeDeviceCapabilityType
-    let instance: String
-    let parameters: GoveeDeviceParameters?
+public struct GoveeDeviceCapability: Codable {
+    public let type: GoveeDeviceCapabilityType
+    public let instance: String
+    public let parameters: GoveeDeviceParameters?
 }
 
-enum GoveeDeviceParameters: Codable {
+public enum GoveeDeviceParameters: Codable {
     case enumType(GoveeDeviceEnumParameters)
     case integerType(GoveeDeviceIntegerParameters)
     case structType(GoveeDeviceStructParameters)
@@ -23,7 +23,7 @@ enum GoveeDeviceParameters: Codable {
         case dataType
     }
     
-    init(from decoder: any Decoder) throws {
+    public init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let dataType = try container.decode(String.self, forKey: .dataType)
         
@@ -46,7 +46,7 @@ enum GoveeDeviceParameters: Codable {
         
     }
     
-    func encode(to encoder: any Encoder) throws {
+    public func encode(to encoder: any Encoder) throws {
         switch self {
         case .enumType(let value):
             try value.encode(to: encoder)
@@ -59,36 +59,36 @@ enum GoveeDeviceParameters: Codable {
 }
 
 
-struct GoveeDeviceEnumParameters: Codable {
-    let dataType: String
-    let options: [Option]
+public struct GoveeDeviceEnumParameters: Codable {
+    public let dataType: String
+    public let options: [Option]
 
-    struct Option: Codable {
+    public struct Option: Codable {
         let name: String
         let value: Int
     }
 }
 
-struct GoveeDeviceIntegerParameters: Codable {
-    let dataType: String
-    let range: RangeValue
-    let unit: String?
+public struct GoveeDeviceIntegerParameters: Codable {
+    public let dataType: String
+    public let range: RangeValue
+    public let unit: String?
 
-    struct RangeValue: Codable {
-        let max: Int
-        let min: Int
-        let precision: Int
+    public struct RangeValue: Codable {
+        public let max: Int
+        public let min: Int
+        public let precision: Int
     }
 }
 
-struct GoveeDeviceStructParameters: Codable {
-    let dataType: String
-    let fields: [Field]
+public struct GoveeDeviceStructParameters: Codable {
+    public let dataType: String
+    public let fields: [Field]
 
-    struct Field: Codable {
-        let fieldName: String
-        let dataType: String
-        let required: Bool
+    public struct Field: Codable {
+        public let fieldName: String
+        public let dataType: String
+        public let required: Bool
     }
 }
 

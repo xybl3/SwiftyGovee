@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum GoveeError: Error {
+public enum GoveeError: Error {
     case decodingError
     case rateLimitExceeded
     case unauthorizedApiKey
@@ -15,7 +15,7 @@ enum GoveeError: Error {
     
 }
 
-enum GoveeDeviceError: Error {
+public enum GoveeDeviceError: Error {
     case unsupportedCapability(String)
     case invalidParameter(String)
 }

@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct GoveeDiscoverDeviceResponse: Codable {
-    let code: Int
-    let message: String
-    let data: [GoveeDevice]
+public struct GoveeDiscoverDeviceResponse: Codable {
+    public let code: Int
+    public let message: String
+    public let data: [GoveeDevice]
 }
 
-class GoveeClient {
+public class GoveeClient {
     private let decoder = JSONDecoder()
     private let baseUrl = "https://openapi.api.govee.com"
     
@@ -25,11 +25,11 @@ class GoveeClient {
     
     private let apiKey: String
     
-    init(apiKey: String) {
+    public init(apiKey: String) {
         self.apiKey = apiKey
     }
     
-    func fetchDevices() async throws -> [GoveeDevice] {
+    public func fetchDevices() async throws -> [GoveeDevice] {
         let url = URL(string: "\(baseUrl)/\(Endpoint.devices.rawValue)")!
         var request = URLRequest(url: url)
         request.setValue(apiKey, forHTTPHeaderField: "Govee-API-Key")
@@ -41,7 +41,7 @@ class GoveeClient {
         return dec.data
     }
     
-    func getDeviceState(device: GoveeDevice) async throws {
+    public func getDeviceState(device: GoveeDevice) async throws {
         let url = URL(string: "\(baseUrl)/\(Endpoint.deviceState.rawValue)")!
         var request = URLRequest(url: url)
         request.setValue(apiKey, forHTTPHeaderField: "Govee-API-Key")
@@ -70,7 +70,7 @@ class GoveeClient {
         print(parsed)
     }
     
-    func turnDevice(on: Bool, device: GoveeDevice) async throws {
+    public func turnDevice(on: Bool, device: GoveeDevice) async throws {
         guard device.capabilities.contains(where: { $0.type == .onOff }) else {
             throw GoveeDeviceError.unsupportedCapability(GoveeDeviceCapabilityType.onOff.rawValue)
         }
@@ -106,7 +106,7 @@ class GoveeClient {
         
     }
     
-    func setColorRGB(color: GoveeRGBColor, device: GoveeDevice) async throws {
+    public func setColorRGB(color: GoveeRGBColor, device: GoveeDevice) async throws {
         guard device.capabilities.contains(where: { $0.type == .colorSetting }) else {
             throw GoveeDeviceError.unsupportedCapability(GoveeDeviceCapabilityType.colorSetting.rawValue)
         }
@@ -139,7 +139,7 @@ class GoveeClient {
         }
     }
     
-    func setTemperatureK(temperatureK: Int, device: GoveeDevice) async throws {
+    public func setTemperatureK(temperatureK: Int, device: GoveeDevice) async throws {
         guard device.capabilities.contains(where: { $0.type == .colorSetting }) else {
             throw GoveeDeviceError.unsupportedCapability(GoveeDeviceCapabilityType.colorSetting.rawValue)
         }
@@ -176,7 +176,7 @@ class GoveeClient {
         }
     }
     
-    func setBrightness(brightness: Int, device: GoveeDevice) async throws {
+    public func setBrightness(brightness: Int, device: GoveeDevice) async throws {
         guard device.capabilities.contains(where: { $0.type == .range }) else {
             throw GoveeDeviceError.unsupportedCapability(GoveeDeviceCapabilityType.range.rawValue)
         }

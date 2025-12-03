@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum GoveeDeviceType: String, Codable {
+public enum GoveeDeviceType: String, Codable {
     case light          = "devices.types.light"
     case airPurifier    = "devices.types.air_purifier"
     case thermometer    = "devices.types.thermometer"
@@ -21,14 +21,14 @@ enum GoveeDeviceType: String, Codable {
     case box            = "devices.types.box"
     case unknown        // Fallback for new types
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         let rawValue = try? container.decode(String.self)
         self = GoveeDeviceType(rawValue: rawValue ?? "") ?? .unknown
     }
 }
 
-enum GoveeDeviceCapabilityType: String, Codable {
+public enum GoveeDeviceCapabilityType: String, Codable {
     case online              = "devices.capabilities.online" // only for device state
     case onOff               = "devices.capabilities.on_off"
     case toggle              = "devices.capabilities.toggle"
@@ -42,14 +42,14 @@ enum GoveeDeviceCapabilityType: String, Codable {
     case temperatureSetting  = "devices.capabilities.temperature_setting"
     case other
     
-    init(from decoder: any Decoder) throws {
+    public init(from decoder: any Decoder) throws {
         let container = try decoder.singleValueContainer()
         let rawValue = try? container.decode(String.self)
         self = GoveeDeviceCapabilityType(rawValue: rawValue ?? "") ?? .other
     }
 }
 
-enum GoveeDeviceCapabilityInstance: String, Codable {
+public enum GoveeDeviceCapabilityInstance: String, Codable {
     // For GoveeDeviceCapabilityType.online
     case online = "online"
     
@@ -88,22 +88,22 @@ enum GoveeDeviceCapabilityInstance: String, Codable {
     case sliderTemperature = "sliderTemperature"
 }
 
-struct GoveeDevice: Identifiable, Codable {
+public struct GoveeDevice: Identifiable, Codable {
     
-    var id: String {
+    public var id: String {
         device
     }
     
     /// Product model
-    let sku: String
+    public let sku: String
     /// Device ID
-    let device: String
+    public let device: String
     /// The device name in Govee Home App.
-    let deviceName: String
+    public let deviceName: String
     /// Device type
-    let type: GoveeDeviceType?
+    public let type: GoveeDeviceType?
     /// Device capabilities
-    let capabilities: [GoveeDeviceCapability]
+    public let capabilities: [GoveeDeviceCapability]
 
     
     enum CodingKeys: CodingKey {

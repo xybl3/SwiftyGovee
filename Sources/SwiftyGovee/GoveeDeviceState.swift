@@ -7,122 +7,42 @@
 
 import Foundation
 
-/*
- {
-     "requestId": "uuid",
-     "msg": "success",
-     "code": 200,
-     "payload": {
-         "sku": "H7143",
-         "device": "52:8B:D4:AD:FC:45:5D:FE",
-         "capabilities": [
-             {
-                 "type": "devices.capabilities.online",
-                 "instance": "online",
-                 "state": {
-                     "value": false
-                 }
-             },
-             {
-                 "type": "devices.capabilities.on_off",
-                 "instance": "powerSwitch",
-                 "state": {
-                     "value": 0
-                 }
-             },
-             {
-                 "type": "devices.capabilities.toggle",
-                 "instance": "warmMistToggle",
-                 "state": {
-                     "value": 0
-                 }
-             },
-             {
-                 "type": "devices.capabilities.work_mode",
-                 "instance": "workMode",
-                 "state": {
-                     "value": {
-                         "workMode": 3,
-                         "modeValue": 9
-                     }
-                 }
-             },
-             {
-                 "type": "devices.capabilities.range",
-                 "instance": "humidity",
-                 "state": {
-                     "value": ""
-                 }
-             },
-             {
-                 "type": "devices.capabilities.toggle",
-                 "instance": "nightlightToggle",
-                 "state": {
-                     "value": 1
-                 }
-             },
-             {
-                 "type": "devices.capabilities.range",
-                 "instance": "brightness",
-                 "state": {
-                     "value": 5
-                 }
-             },
-             {
-                 "type": "devices.capabilities.color_setting",
-                 "instance": "colorRgb",
-                 "state": {
-                     "value": 16777215
-                 }
-             },
-             {
-                 "type": "devices.capabilities.mode",
-                 "instance": "nightlightScene",
-                 "state": {
-                     "value": 5
-                 }
-             }
-         ]
-     }
- }
- */
-
-struct GoveeDeviceStateResponse: Codable {
-    let requestId: String
-    let msg: String
-    let code: Int
-    let payload: GoveeDeviceStateResponsePayload
+public struct GoveeDeviceStateResponse: Codable {
+    public let requestId: String
+    public let msg: String
+    public let code: Int
+    public let payload: GoveeDeviceStateResponsePayload
 }
 
-struct GoveeDeviceStateResponsePayload: Codable {
-    let sku: String
-    let device: String
-    let capabilities: [GoveeDeviceStateCapability]
+public struct GoveeDeviceStateResponsePayload: Codable {
+    public let sku: String
+    public let device: String
+    public let capabilities: [GoveeDeviceStateCapability]
 }
 
-struct GoveeDeviceStateCapability: Codable {
-    let type: String
-    let instance: String
-    let state: GoveeDeviceState
+public struct GoveeDeviceStateCapability: Codable {
+    public let type: String
+    public let instance: String
+    public let state: GoveeDeviceState
 }
 
-struct GoveeDeviceState: Codable {
-    let value: GoveeDeviceStateValue
+public struct GoveeDeviceState: Codable {
+    public let value: GoveeDeviceStateValue
 }
 
-enum GoveeDeviceStateValue: Codable {
+public enum GoveeDeviceStateValue: Codable {
     case bool(Bool)
     case int(Int)
     case string(String)
     case workMode(GoveeDeviceWorkModeValue)
 
     // Struct for the workMode JSON object
-    struct GoveeDeviceWorkModeValue: Codable {
+    public struct GoveeDeviceWorkModeValue: Codable {
         let workMode: Int
         let modeValue: Int
     }
 
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
 
         if let bool = try? container.decode(Bool.self) {
@@ -151,7 +71,7 @@ enum GoveeDeviceStateValue: Codable {
         )
     }
 
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
 
         switch self {

@@ -7,27 +7,27 @@
 
 import Foundation
 
-struct GoveeRequestBody: Codable {
-    let requestId: String
-    let payload: GoveeRequestPayload
+public struct GoveeRequestBody: Codable {
+    public let requestId: String
+    public let payload: GoveeRequestPayload
 }
 
-struct GoveeRequestPayload: Codable {
-    let sku: String
-    let device: String
-    let capability: GoveeRequestCapability?
+public struct GoveeRequestPayload: Codable {
+    public let sku: String
+    public let device: String
+    public let capability: GoveeRequestCapability?
 }
 
-struct GoveeRequestCapability: Codable {
-    let type: GoveeDeviceCapabilityType
-    let instance: GoveeDeviceCapabilityInstance
-    let value: Int
+public struct GoveeRequestCapability: Codable {
+    public let type: GoveeDeviceCapabilityType
+    public let instance: GoveeDeviceCapabilityInstance
+    public let value: Int
 }
 
-struct GoveeRGBColor: Codable {
-    let red: Int
-    let green: Int
-    let blue: Int
+public struct GoveeRGBColor: Codable {
+    public let red: Int
+    public let green: Int
+    public let blue: Int
     
     var colorToInt: Int {
         ((red&0x0ff)<<16)|((green&0x0ff)<<8)|(blue&0x0ff)
