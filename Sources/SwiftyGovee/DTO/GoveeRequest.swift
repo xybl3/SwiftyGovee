@@ -32,4 +32,10 @@ public struct GoveeRGBColor: Codable {
     var colorToInt: Int {
         ((red&0x0ff)<<16)|((green&0x0ff)<<8)|(blue&0x0ff)
     }
+    
+    public init(red: Int, green: Int, blue: Int) {
+        self.red = red
+        self.green = green
+        self.blue = blue
+    }
 }
